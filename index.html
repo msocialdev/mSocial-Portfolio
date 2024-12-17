@@ -3,22 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio Page</title>
+  <title>Portfolio</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Lightbox library (Vanilla JS): GLightbox -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 </head>
 <body>
-  <header>
-    <h1>My Portfolio</h1>
-    <div id="tag-filters" class="filter-container"></div>
-  </header>
+  <!-- Logo -->
+  <div class="logo">
+    <img src="https://msocial.gg/wp-content/uploads/2024/10/Msocial_logo-6.webp" alt="Logo">
+  </div>
 
+  <!-- Tag Filters -->
+  <div id="tag-filters" class="filter-container"></div>
+
+  <!-- Portfolio Grid -->
   <main>
-    <div id="portfolio-grid" class="grid-container"></div>
+    <div id="portfolio-grid" class="masonry-grid"></div>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+  <script src="resources.js"></script>
   <script src="main.js"></script>
 </body>
 </html>

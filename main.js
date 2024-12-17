@@ -2,84 +2,91 @@ document.addEventListener("DOMContentLoaded", () => {
     const portfolioGrid = document.getElementById("portfolio-grid");
     const tagFilters = document.getElementById("tag-filters");
   
-    // Placeholder for your resources from AWS CloudFront
-    const resources = [
-      {
-        type: "image", // "video" or "image"
-        title: "Project 1",
-        description: "Graphic Design Work",
-        client: "Client A",
-        clientLogo: "https://via.placeholder.com/50",
-        url: "https://your-cloudfront-url/graphic1.jpg",
-        tags: ["Design", "Branding"]
-      },
-      {
-        type: "video",
-        title: "Promo Video",
-        description: "Marketing Video Project",
-        client: "Client B",
-        clientLogo: "https://via.placeholder.com/50",
-        url: "https://your-cloudfront-url/video1.mp4",
-        tags: ["Marketing", "Video"]
-      },
-      // Add more items
-    ];
+    // Shuffle array function
+    function shuffle(array) {
+      return array.sort(() => Math.random() - 0.5);
+    }
   
-    // Dynamically generate tags
-    const allTags = new Set();
-    resources.forEach(item => item.tags.forEach(tag => allTags.add(tag)));
+    // Generate tags
+    const allTags = ["All", ...new Set(resources.flatMap(item => item.tags))];
+    let activeTag = "All";
   
     allTags.forEach(tag => {
       const button = document.createElement("button");
       button.innerText = tag;
-      button.onclick = () => filterResources(tag);
+      button.classList.toggle("active", tag === activeTag);
+      button.onclick = () => {
+        activeTag = tag;
+        updateTagButtons();
+        displayResources();
+      };
       tagFilters.appendChild(button);
     });
   
-    // Display all resources shuffled
-    displayResources(shuffleArray(resources));
+    function updateTagButtons() {
+      document.querySelectorAll(".filter-container button").forEach(button => {
+        button.classList.toggle("active", button.innerText === activeTag);
+      });
+    }
   
-    function displayResources(items) {
-      portfolioGrid.innerHTML = ""; // Clear grid
-      items.forEach(resource => {
+    // Assign random tile sizes
+    function getRandomSizeClass() {
+      const sizes = ["small", "medium", "large"];
+      return sizes[Math.floor(Math.random() * sizes.length)];
+    }
+  
+    // Display Resources
+    function displayResources() {
+      portfolioGrid.innerHTML = "";
+      const filteredResources = activeTag === "All"
+        ? shuffle(resources)
+        : shuffle(resources.filter(item => item.tags.includes(activeTag)));
+  
+      filteredResources.forEach(resource => {
         const itemDiv = document.createElement("div");
-        itemDiv.classList.add("grid-item");
+        itemDiv.classList.add("grid-item", getRandomSizeClass());
+  
+        const lightboxContent = `
+          <h3>${resource.title}</h3>
+          <p>${resource.description}</p>
+        `;
   
         let mediaContent = "";
         if (resource.type === "image") {
           mediaContent = `<img src="${resource.url}" alt="${resource.title}">`;
         } else if (resource.type === "video") {
-          mediaContent = `<video autoplay muted loop>
+          mediaContent = `<video muted>
                             <source src="${resource.url}" type="video/mp4">
                           </video>`;
+          itemDiv.addEventListener("mouseenter", () => {
+            const video = itemDiv.querySelector("video");
+            video.play();
+          });
+          itemDiv.addEventListener("mouseleave", () => {
+            const video = itemDiv.querySelector("video");
+            video.pause();
+            video.currentTime = 0;
+          });
         }
   
         itemDiv.innerHTML = `
-          <a href="${resource.url}" class="glightbox" data-gallery="portfolio">
+          <a href="${resource.url}" class="glightbox" data-gallery="portfolio" data-desc="${lightboxContent}">
             ${mediaContent}
-            <div class="grid-item-title">${resource.title}</div>
           </a>
         `;
   
         portfolioGrid.appendChild(itemDiv);
       });
   
-      // Initialize GLightbox for lightbox effect
-      const lightbox = GLightbox({
+      // Initialize or refresh GLightbox
+      GLightbox({
         selector: ".glightbox",
         touchNavigation: true,
         loop: true,
       });
     }
   
-    function filterResources(tag) {
-      const filteredItems = resources.filter(item => item.tags.includes(tag));
-      displayResources(filteredItems);
-    }
-  
-    // Helper function: Shuffle array
-    function shuffleArray(array) {
-      return array.sort(() => Math.random() - 0.5);
-    }
+    // Initial Display
+    displayResources();
   });
   

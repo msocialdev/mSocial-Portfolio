@@ -11,16 +11,28 @@
     color: #333;
   }
   
-  header {
-    text-align: center;
-    margin: 20px 0;
+  /* Logo */
+  .logo {
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    z-index: 1000;
   }
   
+  .logo img {
+    width: 100px;
+    height: auto;
+  }
+  
+  /* Filter Tags */
   .filter-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
     gap: 10px;
+    z-index: 1000;
   }
   
   .filter-container button {
@@ -32,16 +44,24 @@
     transition: background 0.3s;
   }
   
+  .filter-container button.active {
+    background-color: #007bff;
+    color: white;
+  }
+  
   .filter-container button:hover {
     background-color: #007bff;
     color: white;
   }
   
-  .grid-container {
+  /* Masonry Grid Layout */
+  .masonry-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 15px;
-    padding: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-auto-rows: 150px;
+    gap: 10px;
+    padding: 80px 20px 20px;
+    grid-auto-flow: dense;
   }
   
   .grid-item {
@@ -52,29 +72,41 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   
+  /* Randomized tile sizes */
+  .grid-item.small {
+    grid-row: span 1;
+    grid-column: span 1;
+  }
+  
+  .grid-item.medium {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+  
+  .grid-item.large {
+    grid-row: span 2;
+    grid-column: span 3;
+  }
+  
+  /* Media Content */
   .grid-item img,
   .grid-item video {
     width: 100%;
-    display: block;
+    height: 100%;
+    object-fit: cover;
     transition: transform 0.3s ease;
   }
   
-  .grid-item:hover img {
-    transform: scale(1.05);
-  }
-  
+  .grid-item:hover img,
   .grid-item:hover video {
     transform: scale(1.05);
   }
   
-  .grid-item-title {
-    position: absolute;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    width: 100%;
-    text-align: center;
-    padding: 5px;
-    font-size: 14px;
+  .grid-item video {
+    pointer-events: none; /* Prevent clicking on videos */
+  }
+  
+  .grid-item:hover video {
+    pointer-events: auto;
   }
   
