@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (resource.type === "image") {
           mediaContent = `<img src="${resource.url}" alt="${resource.title}">`;
         } else if (resource.type === "video") {
-          mediaContent = `<video preload="none" poster="https://easywaypatente.com/img/video-thumb.jpg" muted>
+          mediaContent = `<video preload="none" poster="https://d27ru9x5zlphec.cloudfront.net/video-thumb.jpg" muted>
                             <source data-src="${resource.url}" src="${resource.url}" type="video/mp4">
                           </video>`;
             
