@@ -72,7 +72,7 @@ const resources = [
   { type: "image", title: "", description: "", client: "", url: "https://d27ru9x5zlphec.cloudfront.net/1080x1080.png", tags: ["Graphic"] },
   { type: "image", title: "", description: "", client: "", url: "https://d27ru9x5zlphec.cloudfront.net/1200x628_concept_5.png", tags: ["Graphic"] },
   { type: "video", title: "", description: "", client: "", url: "https://d27ru9x5zlphec.cloudfront.net/1920x1080 Horizontal.mp4", tags: ["Video"] },
-  { type: "video", title: "", description: "", client: "", url: "https://d27ru9x5zlphec.cloudfront.net/AD3 (1).mp4", tags: ["Video"] },
+//   { type: "video", title: "", description: "", client: "", url: "https://d27ru9x5zlphec.cloudfront.net/AD3 (1).mp4", tags: ["Video"] },
   { type: "video", title: "", description: "", client: "", url: "https://d27ru9x5zlphec.cloudfront.net/Animation ad focused on renters (need new logo).mp4", tags: ["Video"] },
   { type: "image", title: "", description: "", client: "", url: "https://d27ru9x5zlphec.cloudfront.net/apexaleks-giveaway-template.png", tags: ["Graphic"] },
   { type: "image", title: "", description: "", client: "", url: "https://d27ru9x5zlphec.cloudfront.net/Are you ready for the explosion of MMG Token Sale 2.0 copy.jpg", tags: ["Graphic"] },
