@@ -55,18 +55,36 @@ document.addEventListener("DOMContentLoaded", () => {
         if (resource.type === "image") {
           mediaContent = `<img src="${resource.url}" alt="${resource.title}">`;
         } else if (resource.type === "video") {
-          mediaContent = `<video muted>
-                            <source src="${resource.url}" type="video/mp4">
+          mediaContent = `<video preload="none" poster="https://easywaypatente.com/img/video-thumb.jpg" muted>
+                            <source data-src="${resource.url}" src="${resource.url}" type="video/mp4">
                           </video>`;
-          itemDiv.addEventListener("mouseenter", () => {
+            
+        itemDiv.addEventListener("mouseenter", () => {
             const video = itemDiv.querySelector("video");
+            const source = video.querySelector("source");
+            
+            // Restore the source and load the video when hovered
+            if (!source.src) {
+                source.src = source.dataset.src;  // Restore the original URL stored in data-src
+                video.load();
+            }
             video.play();
-          });
-          itemDiv.addEventListener("mouseleave", () => {
+        });
+        
+        itemDiv.addEventListener("mouseleave", () => {
             const video = itemDiv.querySelector("video");
+            const source = video.querySelector("source");
+            
+            // Pause and reset the video when mouse leaves
             video.pause();
             video.currentTime = 0;
-          });
+            
+            // Set the source to null to stop further loading
+            source.src = "";
+            video.load();
+        });
+                          
+                          
         }
   
         itemDiv.innerHTML = `
